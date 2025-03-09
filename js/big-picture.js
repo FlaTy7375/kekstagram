@@ -9,24 +9,24 @@ const commentLoader = popup.querySelector(".comments-loader");
 const closePopup = document.querySelector(".big-picture__cancel");
 
 let loadedCommentsCount = 0; // Количество уже загруженных комментариев
-let saveFun; // Сохраяем аргументы функции
+let saveData; // Сохраяем аргументы функции
 let saveIndex;
 
-const createComment = function(fun, index) {
-    for (let i = loadedCommentsCount; i < loadedCommentsCount + 5 && i < fun[index].comments.length;  i++) {
+const createComment = function(data, index) {
+    for (let i = loadedCommentsCount; i < loadedCommentsCount + 5 && i < data[index].comments.length;  i++) {
       const comment = document.createElement('li');
       comment.innerHTML =
       '<img class="social__picture" src="" alt="" width="35" height="35"><p class="social__text"></p>';
       comment.classList.add('social__comment');
-      comment.querySelector('.social__picture').src = fun[index].comments[i].avatar;
-      comment.querySelector('.social__picture').alt = fun[index].comments[i].name;
-      comment.querySelector('.social__text').textContent = fun[index].comments[i].message;
+      comment.querySelector('.social__picture').src = data[index].comments[i].avatar;
+      comment.querySelector('.social__picture').alt = data[index].comments[i].name;
+      comment.querySelector('.social__text').textContent = data[index].comments[i].message;
       commentsList.appendChild(comment);
     }
     loadedCommentsCount += 5;
 
-    commentCounter.textContent = Math.min(loadedCommentsCount, fun[index].comments.length) + " из " + fun[index].comments.length;
-    if (loadedCommentsCount >= fun[index].comments.length) {
+    commentCounter.textContent = Math.min(loadedCommentsCount, data[index].comments.length) + " из " + data[index].comments.length;
+    if (loadedCommentsCount >= data[index].comments.length) {
       commentLoader.classList.add("hidden");
     } else {
       commentLoader.classList.remove("hidden");
@@ -34,12 +34,12 @@ const createComment = function(fun, index) {
 
 }
 
-const createCommentsList = function(fun, index) {
+const createCommentsList = function(data, index) {
     commentsList.innerHTML = "";
     loadedCommentsCount = 0;
-    createComment(fun, index);
+    createComment(data, index);
 
-    if (5 >= fun[index].comments.length) {
+    if (5 >= data[index].comments.length) {
       commentLoader.classList.add("hidden");
     } else {
       commentLoader.classList.remove("hidden");
@@ -47,30 +47,28 @@ const createCommentsList = function(fun, index) {
 }
 
 commentLoader.addEventListener("click", function() {
-  if (saveFun && saveIndex !== null) {
-    createComment(saveFun, saveIndex);
+  if (saveData && saveIndex !== null) {
+    createComment(saveData, saveIndex);
   }
 })
 
-
-
-const openBigPicture = function(fun, index) {
+const openBigPicture = function(data, index) {
     document.querySelector("body").classList.add("modal-open");
     popup.classList.remove("hidden");
-    image.src = fun[index].url;
-    likes.textContent = fun[index].likes;
-    commentsValue.textContent = fun[index].comments.length;
-    description.textContent = fun[index].description;
-    saveFun = fun;
+    image.src = data[index].url;
+    likes.textContent = data[index].likes;
+    commentsValue.textContent = data[index].comments.length;
+    description.textContent = data[index].description;
+    saveData = data;
     saveIndex = index;
-    createCommentsList(fun, index);
+    createCommentsList(data, index);
 }
 
 const closePicture = function() {
     popup.classList.add("hidden");
     document.querySelector("body").classList.remove("modal-open");
     loadedCommentsCount = 0;
-    saveFun = null;
+    saveData = null;
     saveIndex = null;
 }
 

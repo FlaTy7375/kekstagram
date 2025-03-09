@@ -1,3 +1,7 @@
+//import {postRequest} from "./request";
+
+//Сюда будем отправлять данные
+const url = "https://25.javascript.htmlacademy.pro/kekstagram";
 const loadForm = document.querySelector(".img-upload__form");
 const openWindow = loadForm.querySelector(".img-upload__overlay");
 const loadImage = loadForm.querySelector("#upload-file");
@@ -82,6 +86,7 @@ const closeModal = function () {
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   pristine.validate();
+
 };
 
 loadImage.addEventListener("change", showModal);
