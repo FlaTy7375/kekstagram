@@ -1,28 +1,12 @@
 {
   "name": "kekstagram",
-  "version": "25.0.0",
-  "private": true,
-  "description": "Личный проект «{{projectTitle}}» от HTML Academy",
-  "repository": {
-    "type": "git",
-    "url": "{{sshUrl}}"
-  },
-  "bugs": {
-    "url": "{{bugsUrl}}"
-  },
-  "devDependencies": {
-    "browser-sync": "2.27.7",
-    "eslint": "8.7.0",
-    "eslint-config-htmlacademy": "5.0.0"
-  },
-  "license": "MIT",
-  "dependencies": {},
+  "version": "1.0.0",
+  "description": "* Студент: [{{userName}}]({{userProfile}}). * Наставник: `Неизвестно`.",
+  "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server --no-ui --files \"js/**/*.js\"",
-    "lint": "eslint js/"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines": {
-    "node": "16.x",
-    "npm": "8.x"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
