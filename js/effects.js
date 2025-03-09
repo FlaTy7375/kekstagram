@@ -64,6 +64,20 @@ noUiSlider.create(slider, {
 
 slider.classList.add("hidden");
 
+const resetSlider = function() {
+  slider.noUiSlider.updateOptions({
+    range: {
+      min: 0,
+      max: 100,
+    },
+    step: 1,
+    start: 100,
+  });
+  imagePreview.className = '';
+  imagePreview.style.cssText = "filter: none";
+  slider.classList.add("hidden");
+}
+
 const sliderUpdate = function(effect) {
   slider.noUiSlider.off('update');
   slider.noUiSlider.on('update', function() {
@@ -110,6 +124,6 @@ const changeEffect = function () {
   effectsList.forEach(effect => searchEffect(effect))
 }
 
-export {changeEffect}
+export {changeEffect, resetSlider}
 
 

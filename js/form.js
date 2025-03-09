@@ -1,4 +1,5 @@
-//import {postRequest} from "./request";
+import {postRequest} from "./request.js";
+import {resetSlider} from "./effects.js";
 
 //Сюда будем отправлять данные
 const url = "https://25.javascript.htmlacademy.pro/kekstagram";
@@ -8,6 +9,7 @@ const loadImage = loadForm.querySelector("#upload-file");
 const closeButton = loadForm.querySelector(".img-upload__cancel");
 const hashtagField = document.querySelector(".text__hashtags");
 const commentField = document.querySelector(".text__description");
+const buttonUpload = loadForm.querySelector(".img-upload__submit");
 
 const pristine = new Pristine(loadForm, {
   classTo: "img-upload__element",
@@ -64,7 +66,7 @@ pristine.addValidator(
 
 const showModal = function () {
   openWindow.classList.remove("hidden");
-  document.querySelector("body").classList.add(".modal-open");
+  document.querySelector("body").classList.add("modal-open");
   document.addEventListener("keydown", closeOnEsc);
 };
 
@@ -77,18 +79,31 @@ const closeOnEsc = function (event) {
 
 const closeModal = function () {
   openWindow.classList.add("hidden");
-  document.querySelector("body").classList.remove(".modal-open");
+  document.querySelector("body").classList.remove("modal-open");
   document.removeEventListener("keydown", closeOnEsc);
+  resetSlider();
   loadForm.reset();
   pristine.reset();
 };
 
-const onFormSubmit = (evt) => {
+const onFormSubmit = async (evt) => {
   evt.preventDefault();
-  pristine.validate();
-
+  const formData = new FormData(evt.target);
+  if (pristine.validate()) {
+    try {
+      buttonUpload.disabled = true;
+      const response = await postRequest(url, formData);
+      console.log('Success:', response);
+      closeModal();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+  setTimeout(() => {
+    buttonUpload.disabled = false;
+  }, 1000)
 };
 
 loadImage.addEventListener("change", showModal);
 closeButton.addEventListener("click", closeModal);
-loadForm.addEventListener('submit', onFormSubmit);
+loadForm.addEventListener("submit", onFormSubmit);
