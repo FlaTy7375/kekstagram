@@ -1,12 +1,7 @@
-# Личный проект «{{projectTitle}}»
+# Личный проект FlaTy7375
 
-* Студент: [{{userName}}]({{userProfile}}).
+* Студент: FlaTy7375.
 * Наставник: `Неизвестно`.
-
----
-
-_Не удаляйте и не изменяйте самовольно файлы и папки:_
-_`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `package-lock.json`, `package.json`., `.github`_
 
 ---
 
