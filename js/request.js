@@ -25,7 +25,7 @@ export const postRequest = async function (url, formData) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error:', error); // Логируем ошибку
-    throw error; // Пробрасываем ошибку для дальнейшей обработки
+    console.error('Error:', error);
+    throw error;
   }
 };

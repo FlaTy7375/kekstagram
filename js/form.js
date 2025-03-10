@@ -1,5 +1,6 @@
 import {postRequest} from "./request.js";
 import {resetSlider} from "./effects.js";
+import {showSuccessMessage, showErrorMessage} from "./message.js";
 
 //Сюда будем отправлять данные
 const url = "https://25.javascript.htmlacademy.pro/kekstagram";
@@ -95,8 +96,10 @@ const onFormSubmit = async (evt) => {
       const response = await postRequest(url, formData);
       console.log('Success:', response);
       closeModal();
+      showSuccessMessage()
     } catch (error) {
-      alert(error.message);
+      closeModal();
+      showErrorMessage()
     }
   }
   setTimeout(() => {

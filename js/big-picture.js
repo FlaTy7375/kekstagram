@@ -52,6 +52,21 @@ commentLoader.addEventListener("click", function() {
   }
 })
 
+const closePicture = function() {
+  popup.classList.add("hidden");
+  document.querySelector("body").classList.remove("modal-open");
+  loadedCommentsCount = 0;
+  saveData = null;
+  saveIndex = null;
+  document.removeEventListener("keydown", onEscKeydown);
+}
+
+const onEscKeydown = function (event) {
+if (event.code === 'Escape') {
+  closePicture();
+}
+};
+
 const openBigPicture = function(data, index) {
     document.querySelector("body").classList.add("modal-open");
     popup.classList.remove("hidden");
@@ -62,24 +77,12 @@ const openBigPicture = function(data, index) {
     saveData = data;
     saveIndex = index;
     createCommentsList(data, index);
+    // закрытие по нажатию на крестик
+    closePopup.addEventListener("click", closePicture);
+
+    // закрытие по нажатию на Esc
+    document.addEventListener("keydown", onEscKeydown)
 }
 
-const closePicture = function() {
-    popup.classList.add("hidden");
-    document.querySelector("body").classList.remove("modal-open");
-    loadedCommentsCount = 0;
-    saveData = null;
-    saveIndex = null;
-}
-
-// закрытие по нажатию на крестик
-closePopup.addEventListener("click", closePicture);
-
-// закрытие по нажатию на Esc
-document.addEventListener("keydown", event => {
-  if (event.code === 'Escape') {
-    closePicture();
-  }
-})
 export {openBigPicture}
 

@@ -1,4 +1,5 @@
 import "./form.js";
+import "./message.js"
 import {changeEffect} from "./effects.js";
 import {scaleEdit} from "./scale.js";
 import {addPicture} from "./picture.js";
