@@ -3,53 +3,63 @@ const errorMessage = document.querySelector("#error").content.querySelector(".er
 const successBtn = successMessage.querySelector(".success__button");
 const errorBtn = errorMessage.querySelector(".error__button");
 
-function onBodyClick(event) {
+const addEventListeners = function (closeButton, onButtonClick) {
+    closeButton.addEventListener("click", onButtonClick);
+    document.addEventListener("keydown", onEscKeydown);
+    document.addEventListener("click", onBodyClick);
+};
+
+const removeEventListeners = function (closeButton, onButtonClick) {
+    document.removeEventListener("keydown", onEscKeydown);
+    closeButton.removeEventListener("click", onButtonClick);
+    document.removeEventListener("click", onBodyClick);
+};
+
+const removeMessage = function () {
+    if (document.body.contains(successMessage)) {
+        successMessage.remove();
+        removeEventListeners(successBtn, onBtnSuccessClick);
+    }
+
+    if (document.body.contains(errorMessage)) {
+        errorMessage.remove();
+        removeEventListeners(errorBtn, onBtnErrorClick);
+    }
+};
+
+const onBodyClick = function (event) {
     if (
       event.target.closest('.success__inner') ||
       event.target.closest('.error__inner')
     ) {
       return;
     }
-    errorMessage.remove() || successMessage.remove();
-    document.removeEventListener('click', onBodyClick);
-  }
+    removeMessage();
+}
 
 const onEscKeydown = function (event) {
     if (event.code === 'Escape') {
-        errorMessage.remove() || successMessage.remove();
-        document.removeEventListener("keydown", onEscKeydown);
+        removeMessage();
     }
 };
 
 const onBtnSuccessClick = function () {
     successMessage.remove();
-    document.removeEventListener("keydown", onEscKeydown);
-    successBtn.removeEventListener("click", onBtnSuccessClick);
+    removeEventListeners(successBtn, onBtnSuccessClick);
 }
 
 const onBtnErrorClick = function () {
     errorMessage.remove();
-    document.removeEventListener("keydown", onEscKeydown);
-    errorBtn.removeEventListener("click", onBtnErrorClick);
+    removeEventListeners(errorBtn, onBtnErrorClick);
 }
 
 
 const hideSuccessMessage = function () {
-    //Закрыть на кнокпку
-    successBtn.addEventListener("click", onBtnSuccessClick)
-    //Закрыть на ESC
-    document.addEventListener("keydown", onEscKeydown)
-    //Закрыть по клику на пустую зону
-    document.addEventListener("click", onBodyClick)
+    addEventListeners(successBtn, onBtnSuccessClick);
 }
 
 const hideErrorMessage = function () {
-    //Закрыть на кнокпку
-    errorBtn.addEventListener("click", onBtnErrorClick);
-    //Закрыть на ESC
-    document.addEventListener("keydown", onEscKeydown);
-    //Закрыть по клику на пустую зону
-    document.addEventListener("click", onBodyClick)
+    addEventListeners(errorBtn, onBtnErrorClick);
 }
 
 const showSuccessMessage = function () {

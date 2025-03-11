@@ -110,3 +110,5 @@ const onFormSubmit = async (evt) => {
 loadImage.addEventListener("change", showModal);
 closeButton.addEventListener("click", closeModal);
 loadForm.addEventListener("submit", onFormSubmit);
+
+export {closeModal}
