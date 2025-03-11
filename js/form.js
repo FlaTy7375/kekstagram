@@ -10,7 +10,6 @@ const loadImage = loadForm.querySelector("#upload-file");
 const closeButton = loadForm.querySelector(".img-upload__cancel");
 const hashtagField = document.querySelector(".text__hashtags");
 const commentField = document.querySelector(".text__description");
-const buttonUpload = loadForm.querySelector(".img-upload__submit");
 
 const pristine = new Pristine(loadForm, {
   classTo: "img-upload__element",
@@ -92,7 +91,6 @@ const onFormSubmit = async (evt) => {
   const formData = new FormData(evt.target);
   if (pristine.validate()) {
     try {
-      buttonUpload.disabled = true;
       const response = await postRequest(url, formData);
       console.log('Success:', response);
       closeModal();
@@ -102,9 +100,6 @@ const onFormSubmit = async (evt) => {
       showErrorMessage()
     }
   }
-  setTimeout(() => {
-    buttonUpload.disabled = false;
-  }, 1000)
 };
 
 loadImage.addEventListener("change", showModal);
